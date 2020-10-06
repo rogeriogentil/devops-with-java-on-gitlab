@@ -6,24 +6,24 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MyClassThatTest {
+public class MyClassTest {
 
-    private MyClassUnderTest myClassUnderTest;
+    private MyClass myClass;
 
     @Before
     public void setUp() {
-        myClassUnderTest = new MyClassUnderTest();
+        myClass = new MyClass();
     }
 
     @Test
     public void shouldReturnTrueWhenNumberIsEven() {
-        final boolean even = myClassUnderTest.isEven(2);
+        final boolean even = myClass.isEven(2);
         assertTrue(even);
     }
 
     @Test
     public void shouldReturnFalseWhenNumberIsNotEven() {
-        final boolean even = myClassUnderTest.isEven(1);
+        final boolean even = myClass.isEven(1);
         assertFalse(even);
     }
 }
