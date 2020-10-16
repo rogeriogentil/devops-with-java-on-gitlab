@@ -40,6 +40,27 @@ cache:
 verify:jdk8:
   <<: *verify
 
+unit-test:
+  stage: test
+  script: 
+    - 'mvn $MAVEN_CLI_OPTS package'
+  artifacts:
+    paths:
+      - target/site/jacoco/jacoco.xml
+
+coverage:jacoco:
+  stage: deploy
+  image: haynes/jacoco2cobertura:1.0.3
+  script:
+    - 'python /opt/cover2cover.py target/site/jacoco/jacoco.xml'  
+    - 'python /opt/source2filename.py target/site/cobertura.xml'
+  needs: ["unit-test"]  
+  dependencies:
+    - unit-test
+  artifacts:
+    reports:
+      cobertura: target/site/cobertura.xml
+
 # To deploy packages from CI, create a ci_settings.xml file
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
 # Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
