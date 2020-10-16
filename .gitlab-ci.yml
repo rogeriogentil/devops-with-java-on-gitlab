@@ -21,6 +21,7 @@ variables:
 stages:
   - test
   - coverage
+  - code-review
   - deploy
 
 # This template uses jdk8 for verifying and deploying images
@@ -65,6 +66,9 @@ coverage:jacoco:
   artifacts:
     reports:
       cobertura: target/site/cobertura.xml
+
+include:
+  - template: Code-Quality.gitlab-ci.yml
 
 # To deploy packages from CI, create a ci_settings.xml file
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
